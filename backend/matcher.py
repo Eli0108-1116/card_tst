@@ -6,7 +6,10 @@ import re
 from backend.image_processing import load_or_build_cache
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-INFO_DIR = os.path.join(BASE_DIR, "data", "cards_info")
+INFO_DIR = os.path.join(BASE_DIR, "data", "cards_info")  # 本地卡片說明
+INDEX_PATH = "/app/cache/all.index"  # GCS 下載快取
+DESC_FILE = "/app/cache/all.npy"
+
 
 def process_image(category_en, img_data):
     # 英文 → 中文（只用於組圖檔網址）
@@ -18,7 +21,7 @@ def process_image(category_en, img_data):
         'ritual': '儀式',
         'fusion': '融合',
         'synchro': '同步',
-        'xyz': '超量',0000
+        'xyz': '超量',
         'link': '連結',
         'pendulum': '靈擺',
         'all': '全部'
@@ -39,7 +42,7 @@ def process_image(category_en, img_data):
     # ❗ 這裡使用英文類別名稱來載入 cache
     paths, names, kp_attrs, descs, all_desc = load_or_build_cache(category_en)
 
-    index_path = os.path.join(os.path.dirname(INFO_DIR), "cache", f"{category_en}.index")
+    index_path = os.path.join("/app/cache", f"{category_en}.index")
     if os.path.exists(index_path):
         index = faiss.read_index(index_path)
     else:

@@ -4,22 +4,20 @@ import cv2
 from tqdm import tqdm
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CACHE_DIR = os.path.join(BASE_DIR, "data", "cache")
-GALLERY_DIR = os.path.join(BASE_DIR, "data", "gallery")
+CACHE_DIR = "/app/cache"  # GCS 下載快取
+GALLERY_DIR = os.path.join(BASE_DIR, "data", "gallery")  # 本地圖片庫
+
 
 def extract_features(image_path):
-    """ 提取單張圖片的 SIFT 特徵 """
     sift = cv2.SIFT_create()
     img = cv2.imread(image_path)
     if img is None:
         print(f"⚠️ 無法讀取圖片：{image_path}")
         return None, None
-
     kp, des = sift.detectAndCompute(img, None)
     return kp, des
 
 def build_cache(category):
-    """ 建立快取 """
     gallery_path = os.path.join(GALLERY_DIR, category)
     cache_file = os.path.join(CACHE_DIR, f"{category}.npz")
     desc_file = os.path.join(CACHE_DIR, f"{category}.npy")
@@ -28,7 +26,6 @@ def build_cache(category):
         raise FileNotFoundError(f"圖片目錄不存在：{gallery_path}")
 
     print(f"🔨 正在建立快取：{category}")
-
     paths, names, kp_attrs, descs = [], [], [], []
     sift = cv2.SIFT_create()
 
@@ -42,7 +39,6 @@ def build_cache(category):
             kp_attrs.append([(p.pt[0], p.pt[1], p.size, p.angle) for p in kp])
             descs.append(des)
 
-    # 儲存快取文件
     print("💾 儲存壓縮快取 (.npz)...")
     savez = {
         'paths': np.array(paths),
@@ -61,7 +57,6 @@ def build_cache(category):
         print(f"⚠️ 無法建立快取：{category} 沒有有效的圖像數據")
 
 def load_or_build_cache(category):
-    """ 讀取或構建快取 """
     cache_file = os.path.join(CACHE_DIR, f"{category}.npz")
     desc_file = os.path.join(CACHE_DIR, f"{category}.npy")
 
@@ -83,3 +78,4 @@ def load_or_build_cache(category):
 
     print(f"❌ 無法建立快取：{category}")
     return None, None, None, None, None
+

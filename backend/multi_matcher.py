@@ -7,10 +7,12 @@ import html
 from tqdm import tqdm
 from backend.image_processing import load_or_build_cache
 
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-INFO_DIR = os.path.join(BASE_DIR, "data", "cards_info_updated")
-INDEX_PATH = os.path.join(BASE_DIR, "data", "cache", "all.index")
-DESC_FILE = os.path.join(BASE_DIR, "data", "cache", "all.npy")
+INFO_DIR = os.path.join(BASE_DIR, "data", "cards_info")
+  # 如果說明檔也壓進快取
+INDEX_PATH = "/app/cache/all.index"
+DESC_FILE = "/app/cache/all.npy"
 
 
 def build_or_load_index(des_list, desc_dim):
