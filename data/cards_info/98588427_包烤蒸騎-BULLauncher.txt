@@ -1,0 +1,13 @@
+圖片 URL: https://salix5.github.io/query-data/pics/98588427.jpg
+中文名: 包烤蒸騎-BULLauncher
+日文名: 包焼蒸騎－BULLauncher
+卡號: 98588427
+類型: 怪獸/通常
+等級: 4
+屬性: 炎
+種族: 獸戰士族
+攻: 1800
+守: 200
+
+效果說明:
+「BULLauncher」是在日漸改良「Coc-OS」與「BFS裝甲」的過程中受「馬德拉」之命反覆試錯最終開發的3架「Foil-Packer」之中，專為炮擊&白天戰鬥而特化的支援機。憑藉其換裝成「Beef-Rifle」等武裝而令「包烤蒸騎」應對中、遠距離作戰一事成為可能。此外，「BULLauncher」通過與專為高速&空中戰鬥而特化的「WINGear」和專為接近&強襲戰鬥而特化的「BOARms」進行“熟成合體”，還會讓熱量很高的「包烤獸神-BW」降臨。

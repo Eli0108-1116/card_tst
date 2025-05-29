@@ -1,0 +1,26 @@
+# Python 編譯產物
+__pycache__/
+*.pyc
+
+# VSCode 設定檔
+.vscode/
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# 資料快取（包含解壓後與壓縮檔）
+data/cache/
+data/cache.zip
+
+# 上傳資料夾
+uploads/
+
+# 虛擬環境（若有）
+venv/
+env/
+
+# 系統檔案
+.DS_Store
+Thumbs.db
+
+data/gallery/

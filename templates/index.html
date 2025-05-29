@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <title>卡片圖像辨識系統</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    label, select, input, button { display: block; margin-top: 1em; }
+    #result { margin-top: 2em; background: #f9f9f9; padding: 1em; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h1>遊戲王圖像辨識系統</h1>
+
+  <!-- 單卡辨識表單 -->
+  <form id="singleCardForm">
+    <label for="singleCategory">選擇卡片類別：</label>
+    <select id="singleCategory" name="category" required>
+      <option value="">-- 請選擇 --</option>
+      <option value="synchro">同步</option>
+      <option value="xyz">超量</option>
+      <option value="fusion">融合</option>
+      <option value="link">連結</option>
+      <option value="spell">魔法</option>
+      <option value="trap">陷阱</option>
+      <option value="effect">效果</option>
+      <option value="normal">通常</option>
+      <option value="ritual">儀式</option>
+      <option value="pendulum">靈擺</option>
+      <option value="all">全部</option>
+    </select>
+
+    <label for="singleImg">單卡辨識：</label>
+    <input type="file" id="singleImg" name="image" accept="image/*" required />
+    <button type="submit">開始單卡辨識</button>
+  </form>
+
+  <!-- 多卡辨識表單 -->
+  <form id="multiCardForm">
+    <label for="multiImg">多卡辨識：</label>
+    <input type="file" id="multiImg" name="image" accept="image/*" required />
+    <button type="submit">開始多卡辨識</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    // 單卡辨識處理
+    document.getElementById("singleCardForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "<p>單卡處理中...</p>";
+
+      try {
+        const response = await fetch("/match", {
+          method: "POST",
+          body: formData
+        });
+        if (!response.ok) throw new Error("伺服器錯誤");
+        const data = await response.text();
+        resultDiv.innerHTML = data;
+      } catch (err) {
+        resultDiv.innerHTML = `<p>單卡辨識錯誤：${err.message}</p>`;
+      }
+    });
+
+    // 多卡辨識處理
+    document.getElementById("multiCardForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "<p>多卡處理中...請稍候</p>";
+
+      try {
+        const response = await fetch("/multi_match", {
+          method: "POST",
+          body: formData
+        });
+        if (!response.ok) throw new Error("伺服器錯誤");
+        const data = await response.text();
+        resultDiv.innerHTML = data;
+      } catch (err) {
+        resultDiv.innerHTML = `<p>多卡辨識錯誤：${err.message}</p>`;
+      }
+    });
+  </script>
+</body>
+</html>

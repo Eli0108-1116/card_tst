@@ -1,0 +1,7 @@
+flask
+opencv-python
+numpy
+faiss-cpu
+tqdm
+inference-sdk
+werkzeug
